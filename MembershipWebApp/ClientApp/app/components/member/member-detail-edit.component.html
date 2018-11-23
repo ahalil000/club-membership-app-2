@@ -1,0 +1,139 @@
+<div *ngIf="item">
+    <h2>
+        <a href="javascript:void(0)" (click)="onBack()">
+            &laquo; Back to Home
+        </a>
+    </h2>
+    <div class="item-container">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active">
+                <a href="javascript:void(0)">Edit Member Details</a>
+            </li>
+            <li role="presentation" *ngIf="item.ID != 0">
+                <a href="javascript:void(0)" (click)="onItemMemberDetailView(item)">View Member Details</a>
+            </li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="item-detail-edit" #thisForm="ngForm">
+                    <h3>
+                        Edit Member Details
+                    </h3>
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <label for="input-datejoined">Date Joined</label>
+                        </div>
+                        <div class="input-group-append">
+                            <input id="input-datejoined" name="input-datejoined" type="text" placeholder="{{item.DateJoined | date : 'dd/MM/yyyy'}}" ngbDatepicker #c="ngbDatepicker" class="form-control" [(ngModel)]="item.DateJoined" required (click)="c.toggle()" [minDate]="{year: 1900, month: 1}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <label for="input-description">Days Of Week Attended</label>
+                        </div>
+
+                        <div class="btn-group btn-group-toggle">
+                            <label ngbButtonLabel class="btn-primary">
+                                <input type="checkbox" name="item-DaysOfWeekAttendSelected-mon" [(ngModel)]="item.DaysOfWeekAttendSelected['Monday']"> Monday
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input type="checkbox" name="item-DaysOfWeekAttendSelected-tue" [(ngModel)]="item.DaysOfWeekAttendSelected['Tuesday']"> Tuesday
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input type="checkbox" name="item-DaysOfWeekAttendSelected-wed" [(ngModel)]="item.DaysOfWeekAttendSelected['Wednesday']"> Wednesday
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input type="checkbox" name="item-DaysOfWeekAttendSelected-thu" [(ngModel)]="item.DaysOfWeekAttendSelected['Thursday']"> Thursday
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input type="checkbox" name="item-DaysOfWeekAttendSelected-fri" [(ngModel)]="item.DaysOfWeekAttendSelected['Friday']"> Friday
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input type="checkbox" name="item-DaysOfWeekAttendSelected-sat" [(ngModel)]="item.DaysOfWeekAttendSelected['Saturday']"> Saturday
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input type="checkbox" name="item-DaysOfWeekAttendSelected-sun" [(ngModel)]="item.DaysOfWeekAttendSelected['Sunday']"> Sunday
+                            </label>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group">
+        <label for="input-receivenewsletter">Receive News Letter?</label>
+        <input id="input-receivenewsletter" name="input-receivenewsletter" type="text" class="form-control" [(ngModel)]="item.ReceiveNewsLetter" placeholder="Select receive news letter.." required />
+    </div>-->
+
+                    <div class="form-group">
+
+                        <div class="input-group-append">
+                            <label for="input-receivenewsletter">Receive News Letter?</label>
+                        </div>
+
+                        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="item.ReceiveNewsLetter" required>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input ngbButton type="radio" [value]="true"> True
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input ngbButton type="radio" [value]="false"> False
+                            </label>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group">
+                        <label for="input-memberlevel">Member Level</label>
+                        <input id="input-memberlevel" name="input-memberlevel" type="text" class="form-control" [(ngModel)]="item.MemberLevel" placeholder="Select the membership level..." required />
+                    </div>-->
+
+                    <div class="form-group">
+                        <label for="input-memberlevel">Member Level</label>
+
+                        <div ngbDropdown class="d-inline-block">
+                            <dropdown-custom name="item.MemberLevel"
+                                                    [options]="memberlevels"
+                                                    [(ngModel)]="item.MemberLevel"
+                                                    (onload)="selectValue(item.MemberLevel)">
+                            </dropdown-custom>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="width:80%">
+                        <label for="input-memberfee">Member Fee</label>
+                        <input id="input-memberfee" name="input-memberfee" type="text" class="form-control" [(ngModel)]="item.MemberFee" placeholder="Enter the membership fee..." required />
+                    </div>
+
+                    <div class="input-group-append">
+                        <label for="input-memberfeepaid">Is Member Fee Paid?</label>
+                    </div>
+
+                    <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="item.IsMemberFeePaid" required>
+                        <label ngbButtonLabel class="btn-primary">
+                            <input ngbButton type="radio" [value]="true"> True
+                        </label>
+                        <label ngbButtonLabel class="btn-primary">
+                            <input ngbButton type="radio" [value]="false"> False
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <label for="input-renewalreminderdate">Renewal Reminder Date</label>
+                        </div>
+                        <div class="input-group-append">
+                            <input id="input-renewalreminderdate" name="input-renewalreminderdate" type="text" placeholder="{{item.RenewalReminderDate | date : 'dd/MM/yyyy' }}" ngbDatepicker #d="ngbDatepicker" class="form-control" [(ngModel)]="item.RenewalReminderDate" required (click)="d.toggle()" [minDate]="{year: 1900, month: 1}" />
+                        </div>
+                    </div>
+                    <div *ngIf="item.ID == 0" class="commands insert">
+                        <input type="button" class="btn btn-primary" value="Save" (click)="onInsert(item)" />
+                        <input type="button" class="btn btn-default" value="Cancel" (click)="onBack()" />
+                    </div>
+                    <div *ngIf="item.ID != 0" class="commands update">
+                        <input type="button" class="btn btn-primary" value="Update" (click)="onUpdate(item)" />
+                        <input type="button" class="btn btn-danger" value="Delete" (click)="onDelete(item)" />
+                        <input type="button" class="btn btn-default" value="Cancel" (click)="onItemMemberDetailView(item)" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

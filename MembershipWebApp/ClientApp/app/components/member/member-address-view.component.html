@@ -1,0 +1,57 @@
+<div *ngIf="item">
+    <h2>
+        <a href="javascript:void(0)" (click)="onBack()">&laquo; Back to Home</a>
+    </h2>
+    <div class="item-container">
+        <ul class="nav nav-tabs">
+            <li role="presentation">
+                <a href="javascript:void(0)" (click)="onItemMemberView(item)">View Member Info</a>
+            </li>
+            <li role="presentation" class="active">
+                <a href="javascript:void(0)">View Member Address</a>
+            </li>
+            <li role="presentation">
+                <a href="javascript:void(0)" (click)="onItemMemberAddressEdit(item)">Edit Member Address</a>
+            </li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>
+                    View Member Address
+                </h3>
+                <form class="item-detail-edit" #thisForm="ngForm">
+                    <div class="item-image-panel" style="float:right">
+                        <img src="/dist/img/item-image-sample.png" alt="{{item.Title}}" />
+                        <div class="caption">Sample image with caption.</div>
+                    </div>
+                    <div>
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Address 1</label>
+                            <label class="form-control">{{item.AddressLine1}}</label>
+                        </div>
+
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Address 2</label>
+                            <label class="form-control">{{item.AddressLine2}}</label>
+                        </div>
+
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Suburb</label>
+                            <label class="form-control">{{item.Suburb}}</label>
+                        </div>
+
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">State</label>
+                            <label class="form-control">{{item.State}}</label>
+                        </div>
+
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Post Code</label>
+                            <label class="form-control">{{item.PostCode}}</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

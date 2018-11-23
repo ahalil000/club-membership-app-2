@@ -1,0 +1,13 @@
+{
+  "ConnectionStrings": {
+    "connstr2": "Server=(localdb)\\mssqllocaldb;Database=MembershipDb;Trusted_Connection=True;ConnectRetryCount=0",
+    "connstr3": "Server=.\\SQLExpress;AttachDbFilename=|DataDirectory|MembershipDb.mdf;Database=MembershipDb;Trusted_Connection=Yes",
+    "connstr": "data source=(LocalDb)\\MSSQLLocalDB;attachdbfilename=c:\\data\\MembershipDb.mdf;initial catalog=MembershipDb;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"
+  },
+  "WebServices": {
+    "webservice": "http://localhost:52297/api/DataSource/GetDataSource"
+  },
+  "CurrentEnvironment": {
+    "environment": "DEV"
+  }
+}

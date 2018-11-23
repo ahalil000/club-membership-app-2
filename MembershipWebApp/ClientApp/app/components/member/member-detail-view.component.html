@@ -1,0 +1,110 @@
+<div *ngIf="item">
+    <h2>
+        <a href="javascript:void(0)" (click)="onBack()">&laquo; Back to Home</a>
+    </h2>
+    <div class="item-container">
+        <ul class="nav nav-tabs">
+            <li role="presentation">
+                <a href="javascript:void(0)" (click)="onItemMemberView(item)">View Member Info</a>
+            </li>
+            <li role="presentation" class="active">
+                <a href="javascript:void(0)">View Member Details</a>
+            </li>
+            <li role="presentation">
+                <a href="javascript:void(0)" (click)="onItemMemberDetailEdit(item)">Edit Member Details</a>
+            </li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>
+                    View Member Details
+                </h3>
+                <form class="item-detail-edit" #thisForm="ngForm">
+                    <div class="item-image-panel" style="float:right">
+                        <img src="/dist/img/item-image-sample.png" alt="{{item.Title}}" />
+                        <div class="caption">Sample image with caption.</div>
+                    </div>
+                    <div>
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Date Joined</label>
+                            <label class="form-control">{{item.DateJoined}}</label>
+                        </div>
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Days Of Week Attends</label>
+
+                            <!--<div class="form-group" style="width:80%">
+            <label class="btn-primary" ngbButtonLabel>
+                <input type="checkbox" ngbButton readonly checked="{{item.DaysOfWeekAttendSelected['Monday']}}"> Monday
+            </label>
+            <label class="btn-primary" ngbButtonLabel>
+                <input type="checkbox" ngbButton readonly checked="{{item.DaysOfWeekAttendSelected['Tuesday']}}"> Tuesday
+            </label>
+            <label class="btn-primary" ngbButtonLabel>
+                Wednesday
+            </label>
+        </div>-->
+
+                            <div *ngIf="item.DaysOfWeekAttendSelected['Monday']">
+                                <label class="btn-primary" ngbButtonLabel>
+                                    Monday
+                                </label>
+                            </div>
+                            <div *ngIf="item.DaysOfWeekAttendSelected['Tuesday']">
+                                <label class="btn-primary" ngbButtonLabel>
+                                    Tuesday
+                                </label>
+                            </div>
+                            <div *ngIf="item.DaysOfWeekAttendSelected['Wednesday']">
+                                <label class="btn-primary" ngbButtonLabel>
+                                    Wednesday
+                                </label>
+                            </div>
+                            <div *ngIf="item.DaysOfWeekAttendSelected['Thursday']">
+                                <label class="btn-primary" ngbButtonLabel>
+                                    Thursday
+                                </label>
+                            </div>
+                            <div *ngIf="item.DaysOfWeekAttendSelected['Friday']">
+                                <label class="btn-primary" ngbButtonLabel>
+                                    Friday
+                                </label>
+                            </div>
+                            <div *ngIf="item.DaysOfWeekAttendSelected['Saturday']">
+                                <label class="btn-primary" ngbButtonLabel>
+                                    Saturday
+                                </label>
+                            </div>
+                            <div *ngIf="item.DaysOfWeekAttendSelected['Sunday']">
+                                <label class="btn-primary" ngbButtonLabel>
+                                    Sunday
+                                </label>
+                            </div>
+                            <!--<label class="form-control">{{item.DaysOfWeekAttend}}</label>-->
+                        </div>
+
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Receive News Letter?</label>
+                            <label class="form-control">{{item.ReceiveNewsLetter}}</label>
+                        </div>
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Member Level</label>
+                            <label class="form-control">{{item.MemberLevel}}</label>
+                        </div>
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Member Fee</label>
+                            <label class="form-control">{{item.MemberFee}}</label>
+                        </div>
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Is Member Fee Paid?</label>
+                            <label class="form-control">{{item.IsMemberFeePaid}}</label>
+                        </div>
+                        <div class="form-group" style="width:80%">
+                            <label for="input-description">Renewal Reminder Date</label>
+                            <label class="form-control">{{item.RenewalReminderDate}}</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

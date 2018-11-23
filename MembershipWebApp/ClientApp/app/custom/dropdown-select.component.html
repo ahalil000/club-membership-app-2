@@ -1,0 +1,15 @@
+﻿<div ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="input-accountstatus"
+            ngbDropdownToggle>
+            {{value}}
+    </button>
+    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="input-accountstatus">
+        <button 
+            class="dropdown-item"  
+            *ngFor="let selValue of options"
+            value="{{selValue}}"
+            (click)="selectValue(selValue.value)">
+            {{selValue.value}}
+        </button>
+    </div>
+</div>

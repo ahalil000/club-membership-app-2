@@ -1,0 +1,70 @@
+<div *ngIf="item">
+    <h2>
+        <a href="javascript:void(0)" (click)="onBack()">
+            &laquo; Back to Home
+        </a>
+    </h2>
+    <div class="item-container">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active">
+                <a href="javascript:void(0)">Edit Member Address</a>
+            </li>
+            <li role="presentation" *ngIf="item.ID != 0">
+                <a href="javascript:void(0)" (click)="onItemMemberAddressView(item)">View Member Address</a>
+            </li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="item-detail-edit" #thisForm="ngForm">
+                    <h3>
+                        Edit Member Address
+                    </h3>
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <label for="input-addressline1">Address Line 1</label>
+                            <input id="input-addressline1" name="input-addressline1" type="text" class="form-control" [(ngModel)]="item.AddressLine1" placeholder="Enter address line 1..." required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <label for="input-addressline2">Address Line 2</label>
+                            <input id="input-addressline2" name="input-addressline2" type="text" class="form-control" [(ngModel)]="item.AddressLine2" placeholder="Enter address line 2..." required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <label for="input-suburb">Suburb</label>
+                            <input id="input-suburb" name="input-suburb" type="text" class="form-control" [(ngModel)]="item.Suburb" placeholder="Enter suburb..." required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <label for="input-state">State</label>
+                            <input id="input-state" name="input-state" type="text" class="form-control" [(ngModel)]="item.State" placeholder="Enter state..." required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <label for="input-postcode">Post Code</label>
+                            <input id="input-postcode" name="input-postcode" type="text" class="form-control" [(ngModel)]="item.PostCode" placeholder="Enter postcode..." required />
+                        </div>
+                    </div>
+
+                    <div *ngIf="item.ID == 0" class="commands insert">
+                        <input type="button" class="btn btn-primary" value="Save" (click)="onInsert(item)" />
+                        <input type="button" class="btn btn-default" value="Cancel" (click)="onBack()" />
+                    </div>
+                    <div *ngIf="item.ID != 0" class="commands update">
+                        <input type="button" class="btn btn-primary" value="Update" (click)="onUpdate(item)" />
+                        <input type="button" class="btn btn-danger" value="Delete" (click)="onDelete(item)" />
+                        <input type="button" class="btn btn-default" value="Cancel" (click)="onItemMemberAddressView(item)" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
