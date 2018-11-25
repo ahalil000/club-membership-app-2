@@ -24,7 +24,7 @@ namespace MembershipUnitTest
             services.AddScoped<IMembershipDataRequest, MembershipDataRequest>();
             services.AddDbContext<MembershipContext>(options => options.UseInMemoryDatabase("Test_In_Memory_DB"));
 
-            var serviceProvider = services.BuildServiceProvider();
+            var serviceProvider = services.BuildServiceProvider(); 
 
             _memberrequest = serviceProvider.GetService<IMembershipDataRequest>();
         }
