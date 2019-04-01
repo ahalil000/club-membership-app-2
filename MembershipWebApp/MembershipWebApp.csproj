@@ -1,16 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.3.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +40,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\Migrations\20181211233121_add_users_table_11_12_2018.cs" />
+    <Compile Remove="Domain\Migrations\20181211233121_add_users_table_11_12_2018.Designer.cs" />
+    <Compile Remove="Domain\Migrations\20181212021923_Update_UserRole_Table_12_12_2018.cs" />
+    <Compile Remove="Domain\Migrations\20181212021923_Update_UserRole_Table_12_12_2018.Designer.cs" />
+    <Compile Remove="Domain\Migrations\20181215113042_Apply_Identity_Tables_15_12_2018.cs" />
+    <Compile Remove="Domain\Migrations\20181215113042_Apply_Identity_Tables_15_12_2018.Designer.cs" />
+    <Compile Remove="Domain\Migrations\20181215115610_Apply_Identity_Tables_15_12_2018.cs" />
+    <Compile Remove="Domain\Migrations\20181215115610_Apply_Identity_Tables_15_12_2018.Designer.cs" />
+    <Compile Remove="Domain\Migrations\20181215120738_Apply_Identity_Tables_15_12_2018.cs" />
+    <Compile Remove="Domain\Migrations\20181215120738_Apply_Identity_Tables_15_12_2018.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\dist\img\header1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\app\components\auth\auth.interceptor.ts" />
+    <None Remove="ClientApp\app\components\auth\token.response.ts" />
     <None Remove="ClientApp\app\custom\buttons-weekdaycheckbox.ts" />
     <None Remove="ClientApp\app\custom\dropdown-select.component.ts" />
     <None Remove="ClientApp\app\utils\util.ts" />
@@ -35,15 +71,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\app\components\login\" />
-    <Folder Include="ClientApp\app\components\auth\" />
     <Folder Include="ClientApp\app\components\page\" />
     <Folder Include="App_Data\" />
+    <Folder Include="ClientApp\assets\img\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\dist\img\header1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\auth\auth.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\auth\token.response.ts" />
     <TypeScriptCompile Include="ClientApp\app\custom\dropdown-select.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\utils\util.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="node.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

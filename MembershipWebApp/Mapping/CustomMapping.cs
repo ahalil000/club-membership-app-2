@@ -12,6 +12,7 @@ namespace MembershipWebApp.Mapping
     {
         public CustomMapping()
         {
+            CreateMap<ConfigViewModel, Config>();
             CreateMap<MemberViewModel, Member>();
             CreateMap<MemberDetailsViewModel, MemberDetails>();
             CreateMap<MemberAddressViewModel, MemberAddress>();

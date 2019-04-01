@@ -9,6 +9,7 @@ import { MemberAddressViewComponent } from "../app/components/member/member-addr
 import { MemberAddressEditComponent } from "../app/components/member/member-address-edit.component";
 import { MemberViewComponent } from "../app/components/member/member-view.component";
 import { MemberEditComponent } from "../app/components/member/member-edit.component";
+import { MemberListComponent } from "../app/components/member/member-list.component";
 import { LoginComponent } from "../app/components/login/login.component";
 import { PageNotFoundComponent } from "../app/components/page/page-not-found.component";
 
@@ -28,6 +29,10 @@ const appRoutes: Routes = [
     {
         path: "login",
         component: LoginComponent
+    },
+    {
+        path: "member-list",
+        component: MemberListComponent
     },
     {
         path: "member-detail-edit/:id",

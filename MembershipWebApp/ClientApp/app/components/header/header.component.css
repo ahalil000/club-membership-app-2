@@ -1,0 +1,35 @@
+img {
+    border-radius: 25%;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.container-header {
+    position: static;  /*relative;*/
+    max-width: 100%;
+    border: 1px solid;
+    background-color: black;
+}
+
+.caption-header {
+    position: static; /*absolute;*/
+    max-width: 100%; /*767px;*/
+    bottom: 10px;
+    left: 0px;
+    bottom: 50px;
+    /*padding: 5px;*/
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    width: 100%;
+    text-align: center;
+    background-color: black;
+}
+
+img[_ngcontent-c1] {
+    width: 100%;
+    height: 100%;
+}

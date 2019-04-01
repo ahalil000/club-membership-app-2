@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  membershipwebapp:
+    image: ${DOCKER_REGISTRY-}membershipwebapp
+    build:
+      context: .
+      dockerfile: MembershipWebApp\Dockerfile

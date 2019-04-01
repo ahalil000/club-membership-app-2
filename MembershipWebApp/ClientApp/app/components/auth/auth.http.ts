@@ -17,7 +17,9 @@ export class AuthHttp {
     }
 
     post(url: string, data: any, opts = {}) {
+        console.log("post(): config auth..");
         this.configureAuth(opts);
+        console.log("post(): now attempt post..");
         return this.http.post(url, data, opts);
     }
 

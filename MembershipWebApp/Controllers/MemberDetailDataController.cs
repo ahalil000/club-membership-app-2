@@ -78,7 +78,7 @@ namespace MembershipWebApp.Controllers
         /// </summary>
         /// <returns>Creates a new Member and return it accordingly.</returns>
         [HttpPost()]
-        //[Authorize]
+        [Authorize]
         public IActionResult Add([FromBody]MemberDetailsViewModel mvm)
         {
             if (mvm != null)
@@ -112,7 +112,7 @@ namespace MembershipWebApp.Controllers
         /// </summary>
         /// <returns>Updates an existing Member and return it accordingly.</returns>
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult Update(int id, [FromBody]MemberDetailsViewModel mvm)
         {
             if ((ModelState.IsValid) && (mvm != null))
@@ -147,7 +147,7 @@ namespace MembershipWebApp.Controllers
         /// </summary>
         /// <returns>Deletes a Member, returning a HTTP status 200 (ok) when done.</returns>
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             MemberDetails memberdetails = _memberdetailrequest.GetMemberDetailEntry(id);

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using MembershipWebApp.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using MembershipWebApp.Services;
+using System.Security.Claims;
 
 namespace MembershipWebApp.Domain
 {
@@ -15,10 +18,19 @@ namespace MembershipWebApp.Domain
     public class SeedData : ISeedData
     {
         private MembershipContext db;
+        private RoleManager<ApplicationRole> roleManager;
+        private UserManager<ApplicationUser> userManager;
 
-        public SeedData(MembershipContext _db)
+        private IPasswordHashService p_hasher;
+
+        public SeedData(MembershipContext _db, PasswordHashService _p_hasher,
+                        UserManager<ApplicationUser> _userManager,
+                        RoleManager<ApplicationRole> _roleManager)
         {
             db = _db;
+            p_hasher = _p_hasher;
+            roleManager = _roleManager;
+            userManager = _userManager;
         }
 
         // Use this to generate all membership sample data - Member, MemberDetails, MemberAddress
@@ -210,13 +222,15 @@ namespace MembershipWebApp.Domain
             string[] roadtypes = { "Road", "Street", "Lane", "Close", "Drive", "Ave" };
             string[] suburbs = { "Ryde", "Marsfield", "Epping", "Macquarie Park", "Eastwood", "Denistone" };
 
-            Dictionary<string, string> postcodes = new Dictionary<string, string>();
-            postcodes.Add("Ryde", "2112");
-            postcodes.Add("Marsfield", "2122");
-            postcodes.Add("Epping", "2121");
-            postcodes.Add("Macquarie Park", "2113");
-            postcodes.Add("Eastwood", "2122");
-            postcodes.Add("Denistone", "2114");
+            Dictionary<string, string> postcodes = new Dictionary<string, string>
+            {
+                { "Ryde", "2112" },
+                { "Marsfield", "2122" },
+                { "Epping", "2121" },
+                { "Macquarie Park", "2113" },
+                { "Eastwood", "2122" },
+                { "Denistone", "2114" }
+            };
 
             // Generate address
 
@@ -247,5 +261,175 @@ namespace MembershipWebApp.Domain
             };
             return address;
         }
+
+        /// <summary>
+        /// Create users
+        /// </summary>
+        //public async void CreateUsersAsync()
+        public void CreateUsers()
+        {
+            // local variables
+            DateTime createdDate = new DateTime(2016, 03, 01, 12, 30, 00);
+            DateTime lastModifiedDate = DateTime.Now;
+            string role_Administrators = "Administrators";
+            //string role_Registered = "Registered";
+            string role_Guest = "Guest";
+
+            //Create Roles (if they doesn't exist yet)
+
+            // Add roles .. 
+            var Role_Admin = new ApplicationRole()
+            {
+                Name = role_Administrators,
+                NormalizedName = role_Administrators,
+                CreatedDate = createdDate,
+                LastModifiedDate = lastModifiedDate
+            };
+
+            db.Roles.Add(Role_Admin);
+
+            db.SaveChanges();
+
+            int role_admin_id = 0;
+            var roleadmin = db.Roles.Where(a => a.Name == role_Administrators).SingleOrDefault();
+            if (roleadmin != null)
+            {
+                role_admin_id = roleadmin.Id;
+            }
+
+            var Role_Guest = new ApplicationRole()
+            {
+                Name = role_Guest,
+                NormalizedName = role_Guest,
+                CreatedDate = createdDate,
+                LastModifiedDate = lastModifiedDate
+            };
+
+            db.Roles.Add(Role_Guest);
+
+            db.SaveChanges();
+
+            int role_guest_id = 0;
+            var roleguest = db.Roles.Where(a => a.Name == role_Guest).SingleOrDefault();
+            if (roleguest != null)
+            {
+                role_guest_id = roleguest.Id;
+            }
+
+            // Role claims
+            var adminRole = roleManager.FindByNameAsync(role_Administrators).GetAwaiter().GetResult();
+            if (adminRole != null)
+            {
+                //adminRole = new IdentityRole("Admin");
+                //await roleManager.CreateAsync(adminRole);
+                roleManager.AddClaimAsync(adminRole, new Claim("ApplicationAccess", "AddNewUser"));
+            }
+
+            // Role claims
+            var guestRole = roleManager.FindByNameAsync(role_Guest).GetAwaiter().GetResult();
+            if (guestRole != null)
+            {
+                //adminRole = new IdentityRole("Admin");
+                //await roleManager.CreateAsync(adminRole);
+                roleManager.AddClaimAsync(guestRole, new Claim("ApplicationAccess", "AddNewUser"));
+            }
+
+
+            // Create the "Admin" ApplicationUser account (if it doesn't exist already)
+            var user_Admin = new ApplicationUser()
+            {
+                UserName = "Admin",
+                NormalizedUserName = "Admin",
+                DisplayName = "Admin User",
+                Email = "admin@membershiplist.com",
+                NormalizedEmail = "admin@membershiplist.com",
+                //Password = "Pass4Admin",
+                //PasswordHash = p_hasher.HashPassword("Pass4Admin"), 
+                CreatedDate = createdDate,
+                AccessLevel = role_Administrators,
+                AccountStatus = "Active",
+                Notes = "",
+                Type = 0,
+                PwdLastChanged = lastModifiedDate,
+                LastModifiedDate = lastModifiedDate
+            };
+
+            var passwordHash = userManager.PasswordHasher.HashPassword(user_Admin, "Pass4Admin");
+            user_Admin.PasswordHash = passwordHash;
+
+            //await db.Users.AddAsync(user_Admin);
+            db.Users.Add(user_Admin);
+            //await db.SaveChangesAsync();
+            db.SaveChanges();
+
+            // Insert "Admin" into the Database and also assign the "Administrator" role to him.
+            int admin_id = 0;
+            var adminuser = db.Users.Where(a => a.UserName == "Admin").SingleOrDefault();
+            if (adminuser != null)
+            {
+                admin_id = adminuser.Id;
+            }
+
+            var user_Guest = new ApplicationUser()
+            {
+                UserName = "Guest",
+                NormalizedUserName = "Guest",
+                DisplayName = "Guest User",
+                Email = "guest@membershiplist.com",
+                NormalizedEmail = "guest@membershiplist.com",
+                //Password = "Pass4Guest",
+                //PasswordHash = p_hasher.HashPassword("Pass4Guest"),
+                CreatedDate = createdDate,
+                AccessLevel = role_Guest,
+                AccountStatus = "Active",
+                Notes = "",
+                Type = 0,
+                PwdLastChanged = lastModifiedDate,
+                LastModifiedDate = lastModifiedDate
+            };
+
+            var passwordHash2 = userManager.PasswordHasher.HashPassword(user_Admin, "Pass4Guest");
+            user_Guest.PasswordHash = passwordHash2;
+
+            //await db.Users.AddAsync(user_Guest);
+            db.Users.Add(user_Guest);
+            //await db.SaveChangesAsync();
+            db.SaveChanges();
+
+            // Insert "Guest" into the Database and also assign the "Guest" role to him.
+            int guest_id = 0;
+            var guestuser = db.Users.Where(a => a.UserName == "Guest").SingleOrDefault();
+            if (guestuser != null)
+            {
+                guest_id = guestuser.Id;
+            }
+
+            // Add user roles .. 
+            var user_Role_Admin = new ApplicationUserRole()
+            {
+                CreatedDate = createdDate,
+                LastModifiedDate = lastModifiedDate,
+                RoleId = role_admin_id,
+                UserId = admin_id
+            };
+
+            //await db.UserRoles.AddAsync(user_Role_Admin);
+            db.UserRoles.Add(user_Role_Admin);
+
+            var user_Role_Guest = new ApplicationUserRole()
+            {
+                CreatedDate = createdDate,
+                LastModifiedDate = lastModifiedDate,
+                RoleId = role_guest_id,
+                UserId = guest_id
+            };
+
+            db.UserRoles.Add(user_Role_Guest);
+            //await db.UserRoles.AddAsync(user_Role_Guest);
+
+            db.SaveChanges();
+            //await db.SaveChangesAsync();
+        }
+
     }
 }

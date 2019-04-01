@@ -26,6 +26,14 @@ namespace MembershipWebApp.Controllers
             });
         }
 
+        [HttpGet("IsUserInAdminRole")]
+        public IActionResult IsUserInAdminRole()
+        {
+            return new JsonResult(true);
+        }
+
+
+
         public class WeatherForecast
         {
             public string DateFormatted { get; set; }

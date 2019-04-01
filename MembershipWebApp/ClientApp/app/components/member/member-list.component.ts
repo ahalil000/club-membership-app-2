@@ -5,7 +5,7 @@ import {MemberService} from "../services/member.service";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: "item-list",
+    selector: "member-list",
     templateUrl: "./member-list.component.html",
     styles: ['./member-list.component.css']
 })

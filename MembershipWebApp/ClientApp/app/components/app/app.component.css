@@ -1,6 +1,38 @@
-@media (max-width: 767px) {
+@media (max-width: 1767px) {
   /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
   .body-content {
     padding-top: 50px;
+  }
+
+  .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    background-color: lightgreen;
+    border-color: #e7e7e7;
+  }
+
+  div#welcome.navbar-header.navbar-right {
+    background-color: aquamarine;    
+  }
+
+ /*.col-md-4 {
+    width: 100%;
+ }*/
+/*}*/
+
+
+/*@media (min-width: 992px) {
+    .col-md-4 {
+        width: 100%;
+    }
+}*/
+
+/*@media (min-width: 1767px) {
+    .col-md-4 {
+        width: 100%;
+    }
+}*/
+
+
+  .col-md-4 {
+      width: 100%;
   }
 }

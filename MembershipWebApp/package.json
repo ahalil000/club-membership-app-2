@@ -28,7 +28,7 @@
     "aspnet-prerendering": "^3.0.1",
     "aspnet-webpack": "^2.0.1",
     "awesome-typescript-loader": "3.2.1",
-    "bootstrap": "3.3.7",
+    "bootstrap": "4.0.0",
     "chai": "4.0.2",
     "css": "2.2.1",
     "css-loader": "0.28.4",
@@ -63,6 +63,7 @@
     "zone.js": "0.8.12"
   },
   "dependencies": {
-    "angular5-toaster": "^1.0.2"
+    "angular5-toaster": "^1.0.2",
+    "popper.js": "^1.14.6"
   }
 }

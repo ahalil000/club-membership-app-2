@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
             </label>
             <a class="navbar-brand" href="javascript:void(0)">
-                <img alt="logo" src="/dist/img/logo.png" />
+                <img alt="logo" src="{{getAppBase()}}/dist/img/logo.png" />
             </a>
         </div>
         <div class="collapse navbar-collapse" id="navbar">
@@ -20,13 +20,28 @@
                 <li [class.active]="isActive(['about'])">
                     <a class="about" [routerLink]="['about']">About</a>
                 </li>
-                <li [class.active]="isActive(['login'])">
-                    <a class="login" [routerLink]="['login']">Login</a>
+                <li *ngIf="!authService.isLoggedIn()"
+                    [class.active]="isActive(['login']) || isActive(['register'])">
+                    <a class="login" [routerLink]="['login']">Login / Register</a>
                 </li>
-                <li [class.active]="isActive(['member-edit', 0])">
+                <li *ngIf="authService.isLoggedIn()">
+                    <a class="logout" href="javascript:void(0)"
+                       (click)="logout()">Logout</a>
+                </li>
+                <!--<li [class.active]="isActive(['login'])">
+                    <a class="login" [routerLink]="['login']">Login</a>
+                </li>-->
+                <li [class.active]="isActive(['member-list'])">
+                    <a class="view" [routerLink]="['member-list']">Membership List</a>
+                </li>
+                <li *ngIf="authService.isAdminUser()"
+                    [class.active]="isActive(['member-edit', 0])">
                     <a class="add" [routerLink]="['member-edit', 0]">Add New</a>
                 </li>
             </ul>
+        </div>
+        <div class="navbar-header navbar-right" id="welcome">
+            Welcome {{authService.userName()}}!
         </div>
     </div>
 </nav>
